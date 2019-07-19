@@ -27,8 +27,23 @@ const createAction = () => {
     }
 }
 
+const createContext = () => {
+    return {
+        name: faker.lorem.words(2)
+    }
+}
+
+const createActionContext = () => {
+    return {
+        action_id: faker.random.number({ min: 1, max: maxRecords }),
+        context_id: faker.random.number({ min: 1, max: maxRecords })
+    }
+}
+
 module.exports = {
     createMany,
     createProject,
-    createAction
+    createAction,
+    createContext,
+    createActionContext
 }
