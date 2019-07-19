@@ -4,6 +4,9 @@ const getProjectById = async projectId => {
     const projects = await db("projects")
         .where("id", projectId)
         .first()
+
+    if (!projects) throw Error("Invalid Project ID!")
+
     const actions = await db("actions")
         .columns(["id", "description", "notes", "isCompleted"])
         .where("project_id", projectId)
@@ -17,9 +20,7 @@ const addProject = async projectData => {
 }
 
 const addActionToProject = async (actionData, projectId) => {
-    const project = await getProjectById(projectId)
-
-    if (!project) throw Error("Invalid Project ID!")
+    await getProjectById(projectId)
 
     actionData.project_id = Number(projectId)
 
