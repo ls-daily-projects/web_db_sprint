@@ -78,3 +78,10 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# macOS Stuff
+.DS_Store
+
+# Sqlite Stuff
+*.db3
+*.sqlite3
