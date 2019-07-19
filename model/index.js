@@ -29,8 +29,24 @@ const addActionToProject = async (actionData, projectId) => {
     return getProjectById(projectId)
 }
 
+const getActionById = async actionId => {
+    const action = await db("actions")
+        .where("id", actionId)
+        .first()
+
+    if (!action) throw Error("Invalid Action ID!")
+
+    const contexts = await db("contexts")
+        .columns(["name"])
+        .innerJoin("action_contexts", "action_contexts.action_id", action.id)
+
+    action.contexts = contexts
+    return action
+}
+
 module.exports = {
     getProjectById,
     addProject,
-    addActionToProject
+    addActionToProject,
+    getActionById
 }
