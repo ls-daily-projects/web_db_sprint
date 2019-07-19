@@ -11,7 +11,10 @@ const getProjectById = async projectId => {
     return projects
 }
 
-const addProject = projectData => {}
+const addProject = async projectData => {
+    const [id] = await db("projects").insert(projectData)
+    return getProjectById(id)
+}
 
 const addActionToProject = (actionData, projectId) => {}
 
