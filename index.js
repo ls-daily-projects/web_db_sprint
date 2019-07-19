@@ -1,8 +1,8 @@
-const { getProjectById, addProject } = require("./model")
-const { createProject } = require("./data/utils")
+const { getProjectById, addProject, addActionToProject } = require("./model")
+const { createProject, createAction } = require("./data/utils")
 
-const test1 = async () => {
-    const project = await getProjectById(2)
+const test1 = async projectId => {
+    const project = await getProjectById(projectId)
     console.log(project)
 }
 
@@ -12,4 +12,13 @@ const test2 = async () => {
     const addedProject = await addProject(newProject)
     console.log("Added Project\n", addedProject)
 }
-test2()
+
+const test3 = async projectId => {
+    const newAction = createAction()
+    console.log("New action\n", newAction)
+
+    const updatedProject = await addActionToProject(newAction, projectId)
+    console.log("Updated Project\n", updatedProject)
+}
+
+test3(1)

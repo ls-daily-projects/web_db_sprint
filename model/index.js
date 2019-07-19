@@ -16,7 +16,17 @@ const addProject = async projectData => {
     return getProjectById(id)
 }
 
-const addActionToProject = (actionData, projectId) => {}
+const addActionToProject = async (actionData, projectId) => {
+    const project = await getProjectById(projectId)
+
+    if (!project) throw Error("Invalid Project ID!")
+
+    actionData.project_id = Number(projectId)
+
+    await db("actions").insert(actionData)
+
+    return getProjectById(projectId)
+}
 
 module.exports = {
     getProjectById,
