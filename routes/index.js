@@ -1,7 +1,12 @@
 const { Router } = require("express")
 const { BadRequest } = require("http-errors")
 
-const { getProjectById, addProject, addActionToProject } = require("../model")
+const {
+    getProjectById,
+    addProject,
+    addActionToProject,
+    getActionById
+} = require("../model")
 
 const apiRouter = Router()
 
@@ -35,6 +40,15 @@ apiRouter.post("/projects/:projectId/actions", async (req, res, next) => {
     } catch (error) {
         if (error.errno === 19 || error.errno === 1)
             return next(BadRequest(error.message))
+        next(error)
+    }
+})
+
+apiRouter.get("/actions/:actionId", async (req, res, next) => {
+    try {
+        const action = await getActionById(req.params.actionId)
+        res.json(action)
+    } catch (error) {
         next(error)
     }
 })
