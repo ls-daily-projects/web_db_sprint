@@ -1,17 +1,17 @@
 const db = require("../data")
 
 const getProjectById = async projectId => {
-    const projects = await db("projects")
+    const project = await db("projects")
         .where("id", projectId)
         .first()
 
-    if (!projects) throw Error("Invalid Project ID!")
+    if (!project) throw Error("Invalid Project ID!")
 
     const actions = await db("actions")
         .columns(["id", "description", "notes", "isCompleted"])
         .where("project_id", projectId)
-    projects.actions = actions
-    return projects
+    project.actions = actions
+    return project
 }
 
 const addProject = async projectData => {
