@@ -1,3 +1,7 @@
-const { createMany, createProject, createAction } = require("./data/utils")
+const { getProjectById } = require("./model")
 
-console.log(createMany(createAction))
+const test = async () => {
+    const project = await getProjectById(2)
+    console.log(project)
+}
+test()
